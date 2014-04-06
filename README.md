@@ -6,7 +6,7 @@ Using this plugin you can control average time to process requests by nginx serv
 
 ## Installation
 
- 1. Copy plugin script to munin plugin directory (/etc/munin/plugins)
+ 1. Copy plugin script to munin plugin directory (/etc/munin/plugins) and chmod it to executable
  
  2. Set up Nginx config 
  
