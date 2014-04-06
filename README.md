@@ -11,16 +11,16 @@ Using this plugin you can control average time to process requests by nginx serv
  2. Set up Nginx config 
  
     – Add 
-```
- log_format monitor '$msec $request_time $status $bytes_sent $request';
-``` 
+   ```
+   log_format monitor '$msec $request_time $status $bytes_sent $request';
+   ``` 
     to http section
     
     – Add logging to each section you want to monitor
     
-    ```
-access_log  /var/log/nginx/<section name>.monitor.log  monitor;
-```
+   ```
+   access_log  /var/log/nginx/<section name>.monitor.log  monitor;
+   ```
     
  3. Restart nginx
  
