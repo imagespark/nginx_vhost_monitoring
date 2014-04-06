@@ -30,7 +30,7 @@ Using this plugin you can control average time to process requests by nginx serv
 
  – It's recommended to use different log for static and dynamic (proxied) content
  
- – You can use as much logs as you want. Each log file with .monitor.log will be processed
+ – You can use as many logs as you want. Each log file with .monitor.log will be processed
  
  – Log rotation each day strongly recommended
 
