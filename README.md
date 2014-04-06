@@ -4,7 +4,7 @@ Nginx requests timing monitoring (Munin plugin)
 Basicly one of the most intresting parameters of your web server (after server load and request rate on port 80) is request process time.
 Using this plugin you can control average time to process requests by nginx server.
 
-** Installation
+## Installation
 
  1. Copy plugin script to munin plugin directory (/etc/munin/plugins)
  
@@ -26,7 +26,7 @@ Using this plugin you can control average time to process requests by nginx serv
  
  4. Restart munin-node
  
-** Tuning
+## Tuning
 
  – It's recommended to use different log for static and dynamic (proxied) content
  
@@ -34,7 +34,7 @@ Using this plugin you can control average time to process requests by nginx serv
  
  – Log rotation each day strongly recommended
 
-** Useful links
+### Useful links
 
 [[http://munin-monitoring.org][Munin]]
 [[http://nginx.org][nginx]] HTTP server
