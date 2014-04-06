@@ -36,5 +36,5 @@ Using this plugin you can control average time to process requests by nginx serv
 
 ### Useful links
 
-[[http://munin-monitoring.org][Munin]]
-[[http://nginx.org][nginx]] HTTP server
+[http://munin-monitoring.org][Munin]
+[http://nginx.org][nginx] HTTP server
