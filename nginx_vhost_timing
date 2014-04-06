@@ -1,0 +1,79 @@
+#!/bin/sh
+
+# Install instructions https://github.com/imagespark/nginx_vhost_monitoring
+
+# Copyright (C) 2014 Imagespark <imagespark.ru>
+# Author: Konstantin Esipov <k@imagespark.ru>
+
+# Permission is hereby granted, free of charge, to any person obtaining a
+# copy of this software and associated documentation files (the "Software"),
+# to deal in the Software without restriction, including without limitation
+# the rights to use, copy, modify, merge, publish, distribute, sublicense,
+# and/or sell copies of the Software, and to permit persons to whom the
+# Software is furnished to do so, subject to the following conditions:
+
+# The above copyright notice and this permission notice shall be included in
+# all copies or substantial portions of the Software.
+
+# Except as contained in this notice, the name(s) of the above copyright
+# holders shall not be used in advertising or otherwise to promote the sale,
+# use or other dealings in this Software without prior written authorization.
+
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
+# THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+# FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+# DEALINGS IN THE SOFTWARE.
+
+output_config() {
+    echo "graph_title Nginx avg response time"
+    echo "graph_category nginx"
+    echo "graph_vlabel seconds"
+    
+    for filename in `ls /var/log/nginx/*.monitor.log`
+	do
+		label="`basename $filename | sed -e 's/\.monitor\.log//g' | sed -e 's/\./_/g'`"
+		echo $label".type GAUGE";
+		echo $label".label "$label;
+	done
+}
+
+output_values() {
+    for filename in `ls /var/log/nginx/*.monitor.log`
+	do
+		label="`basename $filename | sed -e 's/\.monitor\.log//g' | sed -e 's/\./_/g'`"
+		echo $label".value "`awk 'systime()<(int($1)+300){s = s + $2; c = c + 1} END { if (c>0) {print s/c} else { print 0 } }' $filename`
+	done
+}
+
+number_of_plugins() {
+    find /etc/munin/plugins -type l | wc -l
+}
+
+output_usage() {
+    printf >&2 "%s - munin plugin to show nginx avg response time\n" ${0##*/}
+    printf >&2 "Usage: %s [config]\n" ${0##*/}
+}
+
+case $# in
+    0)
+        output_values
+        ;;
+    1)
+        case $1 in
+            config)
+                output_config
+                ;;
+            *)
+                output_usage
+                exit 1
+                ;;
+        esac
+        ;;
+    *)
+        output_usage
+        exit 1
+        ;;
+esac
